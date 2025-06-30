@@ -1,50 +1,43 @@
-import java.util.Scanner;
-
+import java.util.*;
 class Main {
+    public static void sort(int arr[], int left, int right) {
+        if(left < right) {
+            int pivotIndex = partition(arr, left, right);
+            
+            sort(arr, left, pivotIndex - 1);
+            sort(arr, pivotIndex + 1, right);
+        }
+    }
+    
+    public static int partition(int arr[], int left, int right) {
+        int pivot = arr[right];
+        int i = left - 1;
+        
+        for(int j = left; j < right; j++) {
+            if(arr[j] < pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        int temp = arr[i+1];
+        arr[i+1] = arr[right];
+        arr[right] = temp;
+        
+        return i + 1;
+    }
+    
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int size = sc.nextInt();
         int arr[] = new int[size];
-        for (int i = 0; i < size; i++) {
+        for(int i=0; i<size; i++) {
             arr[i] = sc.nextInt();
         }
-        quicksort(arr, 0, arr.length - 1);
-        for (int i = 0; i < size; i++) {
-            System.out.print(arr[i] + " ");
+        sort(arr, 0, arr.length - 1);
+        for(int i : arr) {
+            System.out.print(i+" ");
         }
-    }
-
-    public static void quicksort(int arr[], int start, int end) {
-        if (start < end) {
-            int pivot = partition(arr, start, end);
-            quicksort(arr, start, pivot - 1);
-            quicksort(arr, pivot + 1, end);
-        }
-    }
-
-    public static int partition(int arr[], int start, int end) {
-        int pivot = arr[start];
-        int i = start + 1;
-        int j = end;
-
-        while (i <= j) {
-            while (i <= end && arr[i] <= pivot) {
-                i++;
-            }
-            while (arr[j] > pivot) {
-                j--;
-            }
-            if (i < j) {
-                swap(arr, i, j);
-            }
-        }
-        swap(arr, start, j);
-        return j;
-    }
-
-    public static void swap(int arr[], int i, int j) {
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
     }
 }
