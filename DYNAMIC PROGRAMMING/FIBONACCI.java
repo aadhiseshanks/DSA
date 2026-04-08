@@ -7,7 +7,7 @@ class Main {
         // If answer is already calculated
         if(dp[n]!=0) return dp[n];
         int fnm1 = memo(n-1, dp);
-        int fnm2= memo(n-2, dp);
+        int fnm2 = memo(n-2, dp);
         dp[n] = fnm1 + fnm2;
         return dp[n];
     }
