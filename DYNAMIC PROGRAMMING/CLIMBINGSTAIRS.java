@@ -33,3 +33,21 @@ public class Main {
 		System.out.print(climbstairs(n, dp));
 	}
 }
+
+// Tabulation
+import java.util.Scanner;
+public class Main {
+    public static int climbstairs(int n, int[] dp) {
+        for(int i=0; i<=n; i++) {
+            if (i == 0 || i == 1) dp[i] = 1;
+            else dp[i] = climbstairs(i-1, dp) + climbstairs(i-2, dp);
+        }
+        return dp[n];
+    }
+	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
+	    int n = sc.nextInt();
+	    int dp[] = new int[n+1];
+		System.out.print(climbstairs(n, dp));
+	}
+}
